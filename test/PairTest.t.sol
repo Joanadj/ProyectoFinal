@@ -81,6 +81,12 @@ contract PairTest is Test {
     }
     
     function testSwap() public {
+        /*
+            Para probar de hacer el swap
+            primero tenemos que añadir liquidez
+        */
+
+        // Alice añade liquidez
         vm.startPrank(alice);
 
         tokenA.approve(address(pair), 5);
@@ -93,6 +99,7 @@ contract PairTest is Test {
 
         vm.stopPrank();
 
+        // Bob hace el cambio
         vm.startPrank(bob);
 
         uint256 balBefore = tokenA.balanceOf(bob);
@@ -105,7 +112,14 @@ contract PairTest is Test {
     }
 
     function testRemoveLiquidity() public {
-         vm.startPrank(alice);
+
+        /*
+            Para probar de quitar liquidez primero
+            tenemos que añadirla y hacer un cambio
+        */
+        
+        // Alice añade liquidez
+        vm.startPrank(alice);
 
         tokenA.approve(address(pair), 5);
         tokenB.approve(address(pair), 5);
@@ -117,6 +131,7 @@ contract PairTest is Test {
 
         vm.stopPrank();
 
+        // Bob hace un swap
         vm.startPrank(bob);
 
 
@@ -125,6 +140,7 @@ contract PairTest is Test {
 
         vm.stopPrank();
         
+        // Alice saca sus shares
         vm.startPrank(alice);
 
         uint256 shares = pair.balanceOf(alice);
